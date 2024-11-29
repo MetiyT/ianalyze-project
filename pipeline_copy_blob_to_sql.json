@@ -1,0 +1,32 @@
+
+{
+  "name": "CopyBlobToSQL",
+  "properties": {
+    "activities": [
+      {
+        "name": "CopyBlobToSQLActivity",
+        "type": "Copy",
+        "inputs": [
+          {
+            "referenceName": "BlobInputDataset",
+            "type": "DatasetReference"
+          }
+        ],
+        "outputs": [
+          {
+            "referenceName": "SQLTableDataset",
+            "type": "DatasetReference"
+          }
+        ],
+        "typeProperties": {
+          "source": {
+            "type": "AzureBlobSource"
+          },
+          "sink": {
+            "type": "AzureSqlSink"
+          }
+        }
+      }
+    ]
+  }
+}

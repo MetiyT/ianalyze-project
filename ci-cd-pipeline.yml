@@ -1,0 +1,23 @@
+
+name: Azure Data Factory Deployment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Azure CLI
+        uses: azure/cli@v1
+
+      - name: Deploy Azure Data Factory pipeline
+        run: |
+          az login --service-principal -u ${{ secrets.AZURE_CLIENT_ID }} -p ${{ secrets.AZURE_CLIENT_SECRET }} --tenant ${{ secrets.AZURE_TENANT_ID }}
+          az datafactory pipeline create --factory-name "YourDataFactoryName" --resource-group "YourResourceGroup" --pipeline-name "CopyBlobToSQL" --pipeline-file "Azure/DataFactoryPipelines/pipeline_copy_blob_to_sql.json"
